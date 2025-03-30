@@ -7,7 +7,7 @@
   <link rel="shortcut icon" href="./assets/images/icon.png" type="image/png" />
   <title>Have Fun With This One NW</title>
 
-  <!-- Font Awesome Icons (for Home, Fullscreen, Favorite buttons) -->
+  <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   
   <!-- Main CSS -->
@@ -20,6 +20,30 @@
   
   <!-- AdCenter Script -->
   <script id="aclib" type="text/javascript" src="//acscdn.com/script/aclib.js"></script>
+
+  <script>
+    function toggleFullscreen() {
+      const iframe = document.querySelector('iframe');
+      
+      // Try fullscreen on the iframe first
+      if (iframe.requestFullscreen) {
+        iframe.requestFullscreen().catch(err => {
+          // If that fails, try fullscreen on the whole window
+          if (document.documentElement.requestFullscreen) {
+            document.documentElement.requestFullscreen();
+          }
+        });
+      } else if (iframe.webkitRequestFullscreen) { // Safari
+        iframe.webkitRequestFullscreen();
+      } else if (iframe.msRequestFullscreen) { // IE11
+        iframe.msRequestFullscreen();
+      }
+    }
+    
+    function favorite() {
+      // Your existing favorite function
+    }
+  </script>
 </head>
 
 <body theme="main">
@@ -55,8 +79,11 @@
             <i class="fas fa-arrow-left"></i>
           </button>
         </a>
-        <button onclick="document.querySelector('iframe').requestFullscreen()">
+        <button onclick="toggleFullscreen()">
           <i class="fas fa-expand"></i>
+        </button>
+        <button onclick="window.open(location.href, '_blank')">
+          <i class="fas fa-external-link-alt"></i>
         </button>
         <button onclick="favorite()">
           <i class="favorited far fa-star"></i>
