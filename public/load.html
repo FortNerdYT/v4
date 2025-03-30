@@ -86,10 +86,6 @@
       50% { opacity: 1; }
       100% { opacity: 0.8; }
     }
-    
-    body.fake-fullscreen-active #fullscreen-tooltip {
-      display: block;
-    }
   </style>
 </head>
 
@@ -120,7 +116,7 @@
     
     <!-- Fullscreen Tooltip -->
     <div id="fullscreen-tooltip">
-      Press <strong>F11</strong> for true fullscreen
+      Press the <strong>fullscreen button</strong> (🖶) for true fullscreen
     </div>
     
     <div id="gameInfo">
@@ -147,6 +143,8 @@
   </div>
 
   <script>
+    let tooltipTimeout;
+    
     // Enhanced Fullscreen Handler
     async function toggleFullscreen() {
       const iframe = document.getElementById('frame');
@@ -166,6 +164,14 @@
       iframe.classList.add('fake-fullscreen');
       document.documentElement.style.overflow = 'hidden';
       
+      // Show tooltip for 5 seconds
+      const tooltip = document.getElementById('fullscreen-tooltip');
+      tooltip.style.display = 'block';
+      clearTimeout(tooltipTimeout);
+      tooltipTimeout = setTimeout(() => {
+        tooltip.style.display = 'none';
+      }, 5000);
+      
       // Notify iframe content about resize
       try {
         iframe.contentWindow.postMessage({ 
@@ -183,11 +189,14 @@
       // Exit both real and fake fullscreen
       if (document.fullscreenElement) {
         document.exitFullscreen();
-      } else {
-        document.body.classList.remove('fake-fullscreen-active');
-        document.getElementById('frame').classList.remove('fake-fullscreen');
-        document.documentElement.style.overflow = '';
       }
+      
+      // Always clean up fake fullscreen
+      document.body.classList.remove('fake-fullscreen-active');
+      document.getElementById('frame').classList.remove('fake-fullscreen');
+      document.documentElement.style.overflow = '';
+      document.getElementById('fullscreen-tooltip').style.display = 'none';
+      clearTimeout(tooltipTimeout);
     }
     
     // Handle ESC key
