@@ -31,6 +31,11 @@
       height: 100vh !important;
       z-index: 9999 !important;
       background: #000;
+      overflow: hidden !important;
+    }
+    
+    body.fake-fullscreen-active {
+      overflow: hidden !important;
     }
     
     body.fake-fullscreen-active nav,
@@ -83,7 +88,7 @@
 
   <div class="gamecontainer">
     <iframe allowfullscreen frameborder="0" id="frame"></iframe>
-    <!-- Exit Fullscreen Button (hidden initially) -->
+    <!-- Exit Fullscreen Button -->
     <button id="exit-fake-fullscreen" onclick="exitFakeFullscreen()">
       <i class="fas fa-times"></i>
     </button>
@@ -120,9 +125,17 @@
       iframe.classList.toggle('fake-fullscreen');
       body.classList.toggle('fake-fullscreen-active');
       
-      // Notify iframe content about resize (if needed)
+      // Disable scrolling
+      document.documentElement.style.overflow = 'hidden';
+      
+      // Notify iframe content about resize
       try {
-        iframe.contentWindow.postMessage({ type: 'resize', fullscreen: body.classList.contains('fake-fullscreen-active') }, '*');
+        iframe.contentWindow.postMessage({ 
+          type: 'resize', 
+          fullscreen: body.classList.contains('fake-fullscreen-active'),
+          width: window.innerWidth,
+          height: window.innerHeight
+        }, '*');
       } catch (e) {
         console.log("Could not notify iframe:", e);
       }
@@ -134,12 +147,31 @@
       
       iframe.classList.remove('fake-fullscreen');
       body.classList.remove('fake-fullscreen-active');
+      
+      // Re-enable scrolling
+      document.documentElement.style.overflow = '';
     }
     
     // Close fullscreen when pressing ESC
     document.addEventListener('keydown', function(e) {
       if (e.key === 'Escape') {
         exitFakeFullscreen();
+      }
+    });
+    
+    // Handle window resize
+    window.addEventListener('resize', function() {
+      if (document.body.classList.contains('fake-fullscreen-active')) {
+        const iframe = document.getElementById('frame');
+        try {
+          iframe.contentWindow.postMessage({
+            type: 'resize',
+            width: window.innerWidth,
+            height: window.innerHeight
+          }, '*');
+        } catch (e) {
+          console.log("Resize notification failed:", e);
+        }
       }
     });
     
