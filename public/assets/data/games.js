@@ -303,7 +303,7 @@ var games = [
   {
     id: '1v1lol',
     title: "1v1.lol",
-    url: 'https://tylerpalko.github.io/gamehub/1v1.lol/',
+    url: 'https://tylerpalko.github.io/gamehub/1v1.lol',
     image: 'https://play-lh.googleusercontent.com/-dE43Bqni_bUnq0L-piPxiJG4YiCotk5khMdrQaQBJrXJ3vSgjNeIaKyA34rBvKQSyOy'
   },
   {
