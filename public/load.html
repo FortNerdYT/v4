@@ -21,42 +21,46 @@
   <!-- AdCenter Script -->
   <script id="aclib" type="text/javascript" src="//acscdn.com/script/aclib.js"></script>
 
-  <script>
-    function toggleFullscreen() {
-      // First try to fullscreen the iframe directly
-      const iframe = document.getElementById('frame');
-      
-      // Try all browser variants of the fullscreen API
-      const requestFullscreen = iframe.requestFullscreen || 
-                              iframe.webkitRequestFullscreen || 
-                              iframe.mozRequestFullScreen || 
-                              iframe.msRequestFullscreen;
-      
-      if (requestFullscreen) {
-        requestFullscreen.call(iframe).catch(err => {
-          console.log("Fullscreen failed for iframe, trying document:", err);
-          // If iframe fullscreen fails, try fullscreening the document
-          const docRequest = document.documentElement.requestFullscreen ||
-                           document.documentElement.webkitRequestFullscreen ||
-                           document.documentElement.mozRequestFullScreen ||
-                           document.documentElement.msRequestFullscreen;
-          
-          if (docRequest) {
-            docRequest.call(document.documentElement).catch(err => {
-              console.error("Fullscreen completely failed:", err);
-              alert("Fullscreen not available in this context");
-            });
-          }
-        });
-      } else {
-        alert("Fullscreen API not supported in this browser");
-      }
+  <style>
+    /* Fake Fullscreen Styles */
+    .fake-fullscreen {
+      position: fixed !important;
+      top: 0 !important;
+      left: 0 !important;
+      width: 100vw !important;
+      height: 100vh !important;
+      z-index: 9999 !important;
+      background: #000;
     }
     
-    function favorite() {
-      // Your existing favorite function
+    body.fake-fullscreen-active nav,
+    body.fake-fullscreen-active #gameInfo,
+    body.fake-fullscreen-active .gamecontainer > *:not(iframe):not(#exit-fake-fullscreen) {
+      display: none !important;
     }
-  </script>
+    
+    #exit-fake-fullscreen {
+      position: fixed;
+      top: 15px;
+      right: 15px;
+      z-index: 10000;
+      background: rgba(0,0,0,0.7);
+      color: white;
+      border: 2px solid white;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      display: none;
+      cursor: pointer;
+      font-size: 18px;
+    }
+    
+    body.fake-fullscreen-active #exit-fake-fullscreen {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  </style>
 </head>
 
 <body theme="main">
@@ -79,6 +83,11 @@
 
   <div class="gamecontainer">
     <iframe allowfullscreen frameborder="0" id="frame"></iframe>
+    <!-- Exit Fullscreen Button (hidden initially) -->
+    <button id="exit-fake-fullscreen" onclick="exitFakeFullscreen()">
+      <i class="fas fa-times"></i>
+    </button>
+    
     <div id="gameInfo">
       <div class="gameHeader">
         <img id="gameImage" alt="icon" />
@@ -92,7 +101,7 @@
             <i class="fas fa-arrow-left"></i>
           </button>
         </a>
-        <button onclick="toggleFullscreen()">
+        <button onclick="toggleFakeFullscreen()">
           <i class="fas fa-expand"></i>
         </button>
         <button onclick="favorite()">
@@ -101,19 +110,56 @@
       </div>
     </div>
   </div>
-</body>
 
-<!-- Load scripts at the end for better performance -->
-<script src="./js/index.js"></script>
-<script src="./assets/data/games.js"></script>
-<script src="./assets/data/apps.js"></script>
-<script src="./js/load.js"></script>
-
-<!-- Initialize AdCenter -->
-<script type="text/javascript">
-    aclib.runAutoTag({
-        zoneId: '6hmeyutild',
+  <script>
+    // Fake Fullscreen Functions
+    function toggleFakeFullscreen() {
+      const iframe = document.getElementById('frame');
+      const body = document.body;
+      
+      iframe.classList.toggle('fake-fullscreen');
+      body.classList.toggle('fake-fullscreen-active');
+      
+      // Notify iframe content about resize (if needed)
+      try {
+        iframe.contentWindow.postMessage({ type: 'resize', fullscreen: body.classList.contains('fake-fullscreen-active') }, '*');
+      } catch (e) {
+        console.log("Could not notify iframe:", e);
+      }
+    }
+    
+    function exitFakeFullscreen() {
+      const iframe = document.getElementById('frame');
+      const body = document.body;
+      
+      iframe.classList.remove('fake-fullscreen');
+      body.classList.remove('fake-fullscreen-active');
+    }
+    
+    // Close fullscreen when pressing ESC
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        exitFakeFullscreen();
+      }
     });
-</script>
+    
+    // Your existing functions
+    function favorite() {
+      // Your favorite functionality here
+    }
+  </script>
 
+  <!-- Load scripts at the end -->
+  <script src="./js/index.js"></script>
+  <script src="./assets/data/games.js"></script>
+  <script src="./assets/data/apps.js"></script>
+  <script src="./js/load.js"></script>
+
+  <!-- Initialize AdCenter -->
+  <script type="text/javascript">
+    aclib.runAutoTag({
+      zoneId: '6hmeyutild',
+    });
+  </script>
+</body>
 </html>
