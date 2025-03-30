@@ -40,7 +40,7 @@
     
     body.fake-fullscreen-active nav,
     body.fake-fullscreen-active #gameInfo,
-    body.fake-fullscreen-active .gamecontainer > *:not(iframe):not(#exit-fake-fullscreen) {
+    body.fake-fullscreen-active .gamecontainer > *:not(iframe):not(#exit-fake-fullscreen):not(#fullscreen-tooltip) {
       display: none !important;
     }
     
@@ -64,6 +64,31 @@
       display: flex;
       align-items: center;
       justify-content: center;
+    }
+    
+    #fullscreen-tooltip {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0,0,0,0.7);
+      color: white;
+      padding: 8px 16px;
+      border-radius: 4px;
+      z-index: 10000;
+      display: none;
+      font-family: Arial, sans-serif;
+      animation: pulse 2s infinite;
+    }
+    
+    @keyframes pulse {
+      0% { opacity: 0.8; }
+      50% { opacity: 1; }
+      100% { opacity: 0.8; }
+    }
+    
+    body.fake-fullscreen-active #fullscreen-tooltip {
+      display: block;
     }
   </style>
 </head>
@@ -89,9 +114,14 @@
   <div class="gamecontainer">
     <iframe allowfullscreen frameborder="0" id="frame"></iframe>
     <!-- Exit Fullscreen Button -->
-    <button id="exit-fake-fullscreen" onclick="exitFakeFullscreen()">
+    <button id="exit-fake-fullscreen" onclick="exitFullscreen()">
       <i class="fas fa-times"></i>
     </button>
+    
+    <!-- Fullscreen Tooltip -->
+    <div id="fullscreen-tooltip">
+      Press <strong>F11</strong> for true fullscreen
+    </div>
     
     <div id="gameInfo">
       <div class="gameHeader">
@@ -106,7 +136,7 @@
             <i class="fas fa-arrow-left"></i>
           </button>
         </a>
-        <button onclick="toggleFakeFullscreen()">
+        <button onclick="toggleFullscreen()">
           <i class="fas fa-expand"></i>
         </button>
         <button onclick="favorite()">
@@ -117,22 +147,30 @@
   </div>
 
   <script>
-    // Fake Fullscreen Functions
-    function toggleFakeFullscreen() {
+    // Enhanced Fullscreen Handler
+    async function toggleFullscreen() {
       const iframe = document.getElementById('frame');
-      const body = document.body;
       
-      iframe.classList.toggle('fake-fullscreen');
-      body.classList.toggle('fake-fullscreen-active');
+      // 1. First try REAL fullscreen
+      try {
+        if (iframe.requestFullscreen) {
+          await iframe.requestFullscreen();
+          return; // Success!
+        }
+      } catch (e) {
+        console.log("Fullscreen API blocked, falling back to fake fullscreen:", e);
+      }
       
-      // Disable scrolling
+      // 2. Fall back to FAKE fullscreen
+      document.body.classList.add('fake-fullscreen-active');
+      iframe.classList.add('fake-fullscreen');
       document.documentElement.style.overflow = 'hidden';
       
       // Notify iframe content about resize
       try {
         iframe.contentWindow.postMessage({ 
           type: 'resize', 
-          fullscreen: body.classList.contains('fake-fullscreen-active'),
+          fullscreen: true,
           width: window.innerWidth,
           height: window.innerHeight
         }, '*');
@@ -141,28 +179,35 @@
       }
     }
     
-    function exitFakeFullscreen() {
-      const iframe = document.getElementById('frame');
-      const body = document.body;
-      
-      iframe.classList.remove('fake-fullscreen');
-      body.classList.remove('fake-fullscreen-active');
-      
-      // Re-enable scrolling
-      document.documentElement.style.overflow = '';
+    function exitFullscreen() {
+      // Exit both real and fake fullscreen
+      if (document.fullscreenElement) {
+        document.exitFullscreen();
+      } else {
+        document.body.classList.remove('fake-fullscreen-active');
+        document.getElementById('frame').classList.remove('fake-fullscreen');
+        document.documentElement.style.overflow = '';
+      }
     }
     
-    // Close fullscreen when pressing ESC
+    // Handle ESC key
     document.addEventListener('keydown', function(e) {
       if (e.key === 'Escape') {
-        exitFakeFullscreen();
+        exitFullscreen();
+      }
+    });
+    
+    // Handle fullscreen change events
+    document.addEventListener('fullscreenchange', function() {
+      if (!document.fullscreenElement) {
+        exitFullscreen(); // Clean up if user exits via browser controls
       }
     });
     
     // Handle window resize
     window.addEventListener('resize', function() {
-      if (document.body.classList.contains('fake-fullscreen-active')) {
-        const iframe = document.getElementById('frame');
+      const iframe = document.getElementById('frame');
+      if (document.body.classList.contains('fake-fullscreen-active') || document.fullscreenElement) {
         try {
           iframe.contentWindow.postMessage({
             type: 'resize',
