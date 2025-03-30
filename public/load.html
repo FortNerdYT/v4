@@ -23,20 +23,33 @@
 
   <script>
     function toggleFullscreen() {
-      const iframe = document.querySelector('iframe');
+      // First try to fullscreen the iframe directly
+      const iframe = document.getElementById('frame');
       
-      // Try fullscreen on the iframe first
-      if (iframe.requestFullscreen) {
-        iframe.requestFullscreen().catch(err => {
-          // If that fails, try fullscreen on the whole window
-          if (document.documentElement.requestFullscreen) {
-            document.documentElement.requestFullscreen();
+      // Try all browser variants of the fullscreen API
+      const requestFullscreen = iframe.requestFullscreen || 
+                              iframe.webkitRequestFullscreen || 
+                              iframe.mozRequestFullScreen || 
+                              iframe.msRequestFullscreen;
+      
+      if (requestFullscreen) {
+        requestFullscreen.call(iframe).catch(err => {
+          console.log("Fullscreen failed for iframe, trying document:", err);
+          // If iframe fullscreen fails, try fullscreening the document
+          const docRequest = document.documentElement.requestFullscreen ||
+                           document.documentElement.webkitRequestFullscreen ||
+                           document.documentElement.mozRequestFullScreen ||
+                           document.documentElement.msRequestFullscreen;
+          
+          if (docRequest) {
+            docRequest.call(document.documentElement).catch(err => {
+              console.error("Fullscreen completely failed:", err);
+              alert("Fullscreen not available in this context");
+            });
           }
         });
-      } else if (iframe.webkitRequestFullscreen) { // Safari
-        iframe.webkitRequestFullscreen();
-      } else if (iframe.msRequestFullscreen) { // IE11
-        iframe.msRequestFullscreen();
+      } else {
+        alert("Fullscreen API not supported in this browser");
       }
     }
     
@@ -81,9 +94,6 @@
         </a>
         <button onclick="toggleFullscreen()">
           <i class="fas fa-expand"></i>
-        </button>
-        <button onclick="window.open(location.href, '_blank')">
-          <i class="fas fa-external-link-alt"></i>
         </button>
         <button onclick="favorite()">
           <i class="favorited far fa-star"></i>
