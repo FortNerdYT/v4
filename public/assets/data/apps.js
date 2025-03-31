@@ -145,6 +145,13 @@ var apps = [
       "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRfdk6xYeVre9cUN7a5yTAxpSziredLCR8qMw&s",
       "description": "Kahoot Answer Hack"
     },
+    {
+      'id': 'replit',
+      'title': 'Replit',
+      'url': 'https://replit.com',
+      "image": "https://encrypted-tbn0.gstatic.com/imag?q=tbn:ANd9GcRfdk6xYeVre9cUN7a5yTAxpSziredLCR8qMw&s",
+      "description": "Replit"
+    },
   ]
   
   var customapps = JSON.parse(localStorage.getItem("customapps"))
