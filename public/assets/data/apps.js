@@ -138,6 +138,13 @@ var apps = [
       "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Gmail_icon_%282020%29.svg/800px-Gmail_icon_%282020%29.svg.png",
       "description": "Email"
     },
+    {
+      'id': 'kahoothack',
+      'title': 'Kahoot Hack',
+      'url': 'https://cheatnetwork.eu/services/kahoot',
+      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRfdk6xYeVre9cUN7a5yTAxpSziredLCR8qMw&s",
+      "description": "Kahoot Answer Hack"
+    },
   ]
   
   var customapps = JSON.parse(localStorage.getItem("customapps"))
