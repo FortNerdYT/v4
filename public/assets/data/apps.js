@@ -129,7 +129,14 @@ var apps = [
       'title': 'Xbox Cloud Gaming',
       'url': 'https://www.xbox.com/en-us/play',
       "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ5CerSHu4YCZ1HJgV0DYZN8ws6-2v9jEvL6g&s",
-      "description": "Top of the line AI"
+      "description": "Play your favorite games"
+    },
+    {
+      'id': 'gmail',
+      'title': 'Gmail',
+      'url': 'https://mail.google.com',
+      "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Gmail_icon_%282020%29.svg/800px-Gmail_icon_%282020%29.svg.png",
+      "description": "Email"
     },
   ]
   
