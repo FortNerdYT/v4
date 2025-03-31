@@ -138,6 +138,20 @@ var apps = [
       "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6uXOsbFIMVL3teJz9KaJtN6WGgmylyPQp4A&s",
       "description": "Replit"
     },
+    {
+      'id': 'pinterest',
+      'title': 'Pinterest',
+      'url': 'https://www.pinterest.com',
+      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRRS-meG8HDT-iFgfeMdVxdjT_zYLvMVrd8Nw&s",
+      "description": "Pinterest"
+    },
+    {
+      'id': 'internetarchive',
+      'title': 'Internet Archive Book Website',
+      'url': 'https://archive.org/details/internetarchivebooks',
+      "image": "https://upload.wikimedia.org/wikipedia/commons/8/84/Internet_Archive_logo_and_wordmark.svg",
+      "description": "Pinterest"
+    },
   ]
   
   var customapps = JSON.parse(localStorage.getItem("customapps"))
