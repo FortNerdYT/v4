@@ -127,7 +127,7 @@ var apps = [
     {
       'id': 'kahoothack',
       'title': 'Kahoot Hack',
-      'url': 'https://kahoot.club',
+      'url': 'https://khanswers.vercel.app/',
       "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRfdk6xYeVre9cUN7a5yTAxpSziredLCR8qMw&s",
       "description": "Kahoot Answer Hack"
     },
