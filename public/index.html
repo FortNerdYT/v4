@@ -11,16 +11,54 @@
     <script src="./js/preload.js"></script>
 
     <script id="aclib" type="text/javascript" src="//acscdn.com/script/aclib.js"></script>
+    <style>
+      .dismissible-banner {
+        background-color: #ff4444; 
+        color: white; 
+        text-align: center; 
+        padding: 15px; 
+        font-size: 22px; 
+        font-weight: bold; 
+        border-bottom: 3px solid #cc0000; 
+        display: flex; 
+        justify-content: center; 
+        align-items: center; 
+        gap: 10px;
+        position: relative;
+      }
+      .dismiss-button {
+        position: absolute;
+        right: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        background: rgba(255,255,255,0.3);
+        border: none;
+        color: white;
+        font-weight: bold;
+        font-size: 20px;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .dismiss-button:hover {
+        background: rgba(255,255,255,0.5);
+      }
+    </style>
   </head>
 
   <body theme="main">
-    <div style="background-color: #ff4444; color: white; text-align: center; padding: 15px; font-size: 22px; font-weight: bold; border-bottom: 3px solid #cc0000; display: flex; justify-content: center; align-items: center; gap: 10px;">
+    <div id="site-banner" class="dismissible-banner">
       <span style="font-size: 28px;">⚠️</span>
       <div>
           ALL APPS THAT DO NOT WORK OR ARE USELESS HAVE BEEN REMOVED!<br>
           <span style="font-size: 20px;">ALL REMOVED APPS CAN STILL BE ACCESSED THROUGH THE UNBLOCKED BROWSER APP, AND WILL ACTUALLY WORK!</span>
       </div>
       <span style="font-size: 28px;">⚠️</span>
+      <button class="dismiss-button" onclick="dismissBanner()">×</button>
     </div>
 
     <nav>
@@ -55,6 +93,18 @@
     </div>
 
     <script src="./js/index.js"></script>
+    <script>
+      // Check if banner was dismissed
+      if(localStorage.getItem('bannerDismissed') === 'true') {
+        document.getElementById('site-banner').style.display = 'none';
+      }
+
+      // Function to dismiss banner
+      function dismissBanner() {
+        document.getElementById('site-banner').style.display = 'none';
+        localStorage.setItem('bannerDismissed', 'true');
+      }
+    </script>
 
     <script type="text/javascript" async>
       aclib.runAutoTag({
