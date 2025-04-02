@@ -11,40 +11,10 @@ var apps = [
       'image': 'https://static.vecteezy.com/system/resources/previews/006/892/625/original/discord-logo-icon-editorial-free-vector.jpg'
     },
     {
-      "id": "telegram",
-      "title": "Telegram",
-      "url": "https://web.telegram.org/a/",
-      'image': 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Telegram_logo.svg/512px-Telegram_logo.svg.png'
-    }, 
-    {
-      "id": "guilded",
-      "title": "Guilded",
-      "url": "https://www.guilded.gg/",
-      'image': 'https://yt3.googleusercontent.com/cPlwwgZkQQgHRLAg7jvJG4yKGLDId6NH7H_S87TCoEV_dbsF9Me_4YSBL5DyMsndx6hzoZxHUw=s176-c-k-c0x00ffffff-no-rj'
-    },
-    {
-      "id": "geforce",
-      "title": "GeForce NOW (may not work)",
-      "url": "https://play.geforcenow.com",
-      'image': 'https://raw.githubusercontent.com/proudparrot2/cdn/main/8z9zeDIT_400x400-removebg-preview.png'
-    },
-    {
-      'id': 'vscode',
-      'title': 'Visual Studio Code',
-      'url': 'https://vscode.dev/',
-      'image': 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Visual_Studio_Code_1.35_icon.svg/2048px-Visual_Studio_Code_1.35_icon.svg.png'
-    },
-    {
       "id": "tiktok",
       "title": "TikTok",
       "url": "https://tiktok.com",
       'image': 'https://sf-tb-sg.ibytedtos.com/obj/eden-sg/uhtyvueh7nulogpoguhm/tiktok-icon2.png'
-    },
-    {
-      "id": "reddit",
-      "title": "Reddit",
-      "url": "https://reddit.com",
-      'image': 'https://www.redditinc.com/assets/images/site/reddit-logo.png'
     },
     {
       "id": "youtube",
@@ -57,12 +27,6 @@ var apps = [
       "title": "Twitter",
       "url": "https://twitter.com",
       'image': 'https://seeklogo.com/images/T/twitter-icon-square-logo-108D17D373-seeklogo.com.png'
-    },
-    {
-      'id': 'spotify',
-      'title': 'Spotify',
-      'url': 'https://open.spotify.com/browse',
-      'image': 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/Spotify_icon.svg/1982px-Spotify_icon.svg.png'
     },
     {
       'id': 'chess',
@@ -83,27 +47,6 @@ var apps = [
       'image': 'https://docs.google.com/drawings/d/e/2PACX-1vR6y2GvcGu9PdrX9zzE24dhm24hClcNsdAmZjIgSUC8sFOahf6t7Yg6l_W8Rd4GduWOH_X02GHVFdBb/pub?w=512&h=512'
     },
     {
-      'id': 'xboxcloudgaming',
-      'title': 'Xbox Cloud Gaming',
-      'url': 'https://www.xbox.com/en-us/play',
-      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ5CerSHu4YCZ1HJgV0DYZN8ws6-2v9jEvL6g&s",
-      "description": "Play your favorite games"
-    },
-    {
-      'id': 'kahoothack',
-      'title': 'Kahoot Hack',
-      'url': 'https://khanswers.vercel.app/',
-      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRfdk6xYeVre9cUN7a5yTAxpSziredLCR8qMw&s",
-      "description": "Kahoot Answer Hack"
-    },
-    {
-      'id': 'replit',
-      'title': 'Replit',
-      'url': 'https://replit.com',
-      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6uXOsbFIMVL3teJz9KaJtN6WGgmylyPQp4A&s",
-      "description": "Replit"
-    },
-    {
       'id': 'pinterest',
       'title': 'Pinterest',
       'url': 'https://www.pinterest.com',
@@ -116,13 +59,6 @@ var apps = [
       'url': 'https://archive.org/details/internetarchivebooks',
       "image": "https://upload.wikimedia.org/wikipedia/commons/8/84/Internet_Archive_logo_and_wordmark.svg",
       "description": "Books an stuff idk"
-    },
-    {
-      'id': 'github',
-      'title': 'Github',
-      'url': 'https://github.com',
-      "image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADgAAAA4CAMAAACfWMssAAAAZlBMVEX///8AAAD6+vrz8/Pa2trd3d2lpaWrq6vr6+vJycmenp55eXlGRkb39/clJSVZWVmMjIxUVFSzs7M2NjZlZWW/v787OzuUlJTl5eUWFhYbGxvPz89LS0ssLCyBgYFgYGAODg5tbW33dDBNAAACIUlEQVRIib2W7XaCMAyGG0BEEBRQmKBu3v9NztI2TUs/8Jyd5RctfUia5k1h7O8tqZNPkbSrBhA2tc+u2Ih1R7Csz+O+67NNCXvWYa50Y9zKALZr/BxAs/NxeQjjtndzVYwDqFzcd5wDuKy5yxYO4GVznlNY29nkrnL6dvMBP6qWrpRL5eSJsaJ0seOXDiolYCvnumW0F877Yein5VGc/ay/ruygPjyLcbLPsMKSLJcuCrXqgCAWTOY6J2W1WvWwMwPgLSoDRJcDzswhEEOFu5j40snLQ6AODIS0Rz0R3GOq15VWpCHJGS6PfJjgcApzjPW4lLeSeatDVRkqi3oU3CE3nUYuaa2LeBvEpVwjWohpFHyopVyWJwQjHfBt2HF5obcfeMSTaw2P8T3+UI96j8ES56bLnDetJ46uMVAf+ZPRNuzsmtT0yXE1oPwBNm9xUaQOfHuRiwN4WGOfaTVAY0UOfQi863WiK+/0BAxenzW9p6UcSKzeq6yjaxo5uQirY4W8586rlrUbze6OH+eDqSDSPJKrJb+DbfhOAOR6IM2aZSuO7Ebs8t1IXjJHNFD7pn6QdyKxFa4y+uvBAg0tlCpYNp+r0ax2CxzNxC2qvNvpdIAn+3Xv+JqwmXKO2loS1B546SResHH91JGaMvZPzmNw/wxWMXD1r6Ls6gRRBJ2Pe0vg5QBl47+Eu2d2VAdqgm30YmFZhbKRYUxQRTvnP9gvtLMTQIVu4K8AAAAASUVORK5CYII=",
-      "description": "Github"
     },
     {
       'id': 'koyeb',
@@ -138,12 +74,19 @@ var apps = [
       "image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAIAAAD9b0jDAAABlElEQVR4Aa2RAUQDURjHHwAABYAgECAymUzArEErDYZUFJZkSotqgFBAFlKAgaGQIAsiIgIFDBBBbHfublur3/XZdrqnLd7zc9u9e9/v/d/3VLtgHtXeMw7SXeMg3TaP+swZB+mGcZBmzaNaa8ZBujIYi6qVUXZaWatDVkY108wwr4dv/UHh5CJ26fCrMxrV1/p+QtRh2F8PBfJsJJVzmnMebhChCw77bKeZ0tRSpsHNjlNgXxWt63OrfGzfltzn+7CUUVseC5eHjCnfaF0U0OGy78pATO/lSStljTfNaSgMSlM9RGofLGAUl89jRWJqpa2Pd7xAZFGDkh/erXySgNwGp8YoLiAjhKXhYW0mxIvOp360Tjqncik6EQV1zbcq/C1lmbTiRxpXuCSXWIKIcRAprfCmRBqHXlLothL+dXxqvRi2jpTYdKR+kvfvvVwE9pBt5MbkrvqfPR6Qgkw5M8P27MgvrLlReda25vUsRd0J1ZXyb2BiipbpiQVXitQ0bGIewhsHadQ4SCeNgzRiHuVOmOcbe7MFPYep+uEAAAAASUVORK5CYII=",
       "description": "Music"
     },
-    {
+    { 
       'id': 'unblockedbrowser',
       'title': 'Unblocked Browser',
       'url': 'https://duckduckgo.com/',
       "image": "https://cdn-icons-png.freepik.com/512/4387/4387430.png",
       "description": "Stuff is unblocked on here I think"
+    },
+    {
+      'id': 'chatroom',
+      'title': 'Public Chatroom',
+      'url': 'https://earnest-scone-794946.netlify.app',
+      "image": "data:image/png;base64,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",
+      "description": "Chatroom for you guys... This might not go well"
     },
   ]
   
